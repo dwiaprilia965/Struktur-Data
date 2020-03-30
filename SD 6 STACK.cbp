@@ -1,43 +1,86 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<CodeBlocks_project_file>
-	<FileVersion major="1" minor="6" />
-	<Project>
-		<Option title="SD 6 STACK" />
-		<Option pch_mode="2" />
-		<Option compiler="gcc" />
-		<Build>
-			<Target title="Debug">
-				<Option output="bin/Debug/SD 6 STACK" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-g" />
-				</Compiler>
-			</Target>
-			<Target title="Release">
-				<Option output="bin/Release/SD 6 STACK" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-O2" />
-				</Compiler>
-				<Linker>
-					<Add option="-s" />
-				</Linker>
-			</Target>
-		</Build>
-		<Compiler>
-			<Add option="-Wall" />
-			<Add option="-fexceptions" />
-		</Compiler>
-		<Unit filename="main.cpp" />
-		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
-			<lib_finder disable_auto="1" />
-		</Extensions>
-	</Project>
-</CodeBlocks_project_file>
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+#include <iostream>
+#include <string>
+#define MaxElemen 200
+
+using namespace std;
+
+struct Tumpukan
+{
+ char Isi[MaxElemen];
+   int Atas;
+} T;
+
+void PUSH (char x){
+if(T.Atas == MaxElemen){
+ cout<<"Tumpukan Sudah Penuh";
+ getch();
+}
+else{
+ T.Atas = T.Atas + 1;
+ T.Isi[T.Atas] = x;
+}
+}
+
+char POP(){
+ char hasil;
+ if(T.Atas == 0){
+    cout<<"Tumpukan sudah kosong";
+      hasil = ' ';
+   }
+   else{
+    hasil = T.Isi[T.Atas];
+      T.Atas = T.Atas - 1;
+   }
+   return hasil;
+}
+
+
+int main()
+{
+     int I,jumlah,belakang;
+     char Kalimat[MaxElemen];
+     bool palindrome=true;
+
+     T.Atas =0;
+     cout<<"====================================="<<endl;
+     cout<<"Aplikasi Stack untuk Membalik kalimat"<<endl;
+     cout<<"=====================================\n\n";
+
+
+     cout<<"Masukkan Kalimat : ";
+     cin.getline(Kalimat,sizeof(Kalimat));
+     cout<<"Kalimat Asli : "<<Kalimat;
+
+     jumlah=strlen(Kalimat);
+     belakang=jumlah-1;
+     cout<<endl<<"Jumlah Kata= "<<jumlah<<endl;
+
+
+     for(I=0;I<strlen(Kalimat);I++)
+     {
+      PUSH(Kalimat[I]);
+      }
+
+      cout<<"Kalimat Setelah di Balik : ";
+
+      for (I=0;I<strlen(Kalimat);I++)
+      {
+       cout<<""<<POP();
+      }
+
+      for (int a=0;a<jumlah;a++)
+      {
+          if((char)tolower(Kalimat[a])!=(char)tolower(Kalimat[belakang]))
+            palindrome=false;
+          break;
+      }
+            if (palindrome)
+                cout<<"Palindrome";
+            else
+                cout<<"\nBukan Palindrome";
+            return 0;
+       getch();
+    }
